@@ -1,0 +1,616 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assign1\_q2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-1-question-2}{%
+\section{Assignment 1 : Question 2}\label{assignment-1-question-2}}
+
+    \hypertarget{question}{%
+\subsection{Question}\label{question}}
+
+    Consider the training dataset data.csv, which has 8 variables, as
+follows. ``NumPreg'',``PlasmaGlucose'', ``DiastolicBP'', ``TricepSkin'',
+``BodyMassIndex'' ,``Pedigree'' ``Age'', ``Diabetic'' The target is to
+fit a logistic regression model to predict the ``Diabetic'' variable
+based on the other 7 variables. In this connection, please answer the
+following questions, in given sequence. 1. Develop the best model to
+predict the categorical response variable ``Diabetic'' in case of the
+given dataset? Justify your choice for best model. 2. Suppose you have
+chosen a threshold t to classify P(Diabetic \textbar{} X) \textgreater{}
+t as ``Diabetic'' = Yes. How would you choose the optimal threshold t
+such that the aforesaid classification achieves maximum accuracy for
+your best model? Justify your choice.
+
+    \hypertarget{the-solution}{%
+\subsection{The Solution}\label{the-solution}}
+
+    \hypertarget{importing-the-libraries}{%
+\subsubsection{Importing the Libraries}\label{importing-the-libraries}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{sklearn}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sn}
+\end{Verbatim}
+
+
+    \hypertarget{splitting-the-data-into-features-and-labels-and-encoding-the-labels}{%
+\subsubsection{Splitting the data into features and labels and encoding
+the
+labels}\label{splitting-the-data-into-features-and-labels-and-encoding-the-labels}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          
+          \PY{c+c1}{\PYZsh{}encoding}
+          \PY{n}{labelencoder\PYZus{}Y} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{labelencoder\PYZus{}Y}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} All rows and first column i.e country column}
+          \PY{n}{y}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} array([0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0,
+                 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+                 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
+                 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0,
+                 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0,
+                 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0,
+                 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1,
+                 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0,
+                 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0,
+                 0, 1])
+\end{Verbatim}
+            
+    \hypertarget{normalizing-the-features-with-standard-scaler}{%
+\subsubsection{Normalizing the features with Standard
+Scaler}\label{normalizing-the-features-with-standard-scaler}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{standard\PYZus{}scaler} \PY{o}{=} \PY{n}{sklearn}\PY{o}{.}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+          \PY{n}{x\PYZus{}scaled} \PY{o}{=} \PY{n}{standard\PYZus{}scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalised\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x\PYZus{}scaled}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalised\PYZus{}std}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}             0         1         2         3         4         5         6
+          0    0.425869 -1.202040 -0.284695 -0.103888 -0.345061 -0.315755 -0.740777
+          1    1.021490  2.248642 -0.110035  0.323636 -1.179093 -0.971641  2.090800
+          2    0.425869 -1.486959  0.937920  1.007674  0.570740 -0.994483  0.263976
+          3   -1.063183  1.298913  0.413942  1.178684  2.549524 -0.658382 -0.558095
+          4   -1.063183 -0.537230 -0.983331 -0.360403 -0.966497 -1.069534 -0.832118
+          5    0.425869 -0.853806  0.413942 -0.189393  0.538033 -0.270072  1.816776
+          6   -0.169752 -1.297013 -1.157991  0.152626  0.325436 -0.407122 -0.649436
+          7   -0.765373  2.185326 -1.856628 -1.129946 -1.048265  0.633811 -0.740777
+          8   -0.169752  0.570787  0.763261 -1.215451  0.014718 -0.850906  2.821529
+          9   -0.467562  0.127580  0.588602  0.665655  1.797259  2.490522 -0.101389
+          10  -1.063183  0.412499 -2.729924  0.494645  1.764552  5.962474  0.081294
+          11   1.617110  0.950679  0.588602  0.067121 -0.230586 -0.968378  1.177388
+          12  -0.765373  2.058696 -0.983331 -0.531413 -0.361414 -0.204809  2.456165
+          13   2.510541 -1.012095 -0.808672 -1.899490 -0.770254  1.518114  1.086047
+          14  -0.765373 -1.202040 -0.459354  1.948228  1.470187  1.488746 -0.284071
+          15   0.128058 -0.790491  0.413942 -1.215451 -1.489812 -0.775854 -1.014801
+          16  -0.765373 -0.473915 -0.983331 -1.813985 -1.130033  1.586640 -1.014801
+          17   2.212731  0.602445  1.985875  0.323636  0.701569 -0.674698  1.725435
+          18  -0.765373  0.792391 -0.284695 -0.018384 -0.492243 -0.364702  0.903364
+          19  -1.063183  0.475814 -0.808672 -1.044441 -1.669701 -0.828064 -1.014801
+          20  -0.467562 -0.790491 -0.110035 -1.129946 -1.947712 -0.736697 -0.466753
+          21  -0.765373 -0.758833 -0.459354 -0.018384 -0.050696 -0.054706  0.903364
+          22   0.128058 -1.297013  1.287239 -0.873432 -0.492243 -0.469121  0.172635
+          23  -1.063183 -0.727176 -0.634013 -1.044441 -1.849590 -0.681224 -1.014801
+          24  -0.765373 -1.170383 -0.284695  0.409141  0.865105 -0.195020 -0.740777
+          25   1.617110  1.267255  1.112579 -0.702422 -0.246939  1.208119 -0.010048
+          26  -0.765373 -0.790491 -1.157991 -1.642975 -1.130033  0.294447 -1.014801
+          27  -1.063183  0.507472 -0.546683 -0.274898  1.682784 -0.097127 -0.740777
+          28   0.425869 -0.505572  0.064624  1.178684  0.619801 -0.645330  0.081294
+          29  -0.467562 -0.442257  0.239283 -0.018384  0.014718  0.774125 -0.466753
+          ..        {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}
+          170  0.723679 -0.283969 -0.983331  0.836665  0.227315 -0.704066  0.720682
+          171  0.425869 -0.600545  0.064624 -0.018384  0.750630 -0.984693 -0.375412
+          172  1.021490  2.216984 -0.284695 -0.103888  0.587094  0.927491  0.812023
+          173  0.128058  1.900408  0.588602  0.836665  0.766983 -0.642066 -0.101389
+          174 -1.063183 -0.917122  1.199909 -0.360403  0.832397 -0.697539 -0.740777
+          175  1.021490  0.000950 -0.110035  0.323636 -1.113679 -0.978167  0.446658
+          176 -0.765373 -0.410600 -0.808672 -1.386461 -1.358983 -1.053219 -0.832118
+          177  1.021490  0.412499  1.636557  1.007674 -0.050696 -0.227651  0.629341
+          178  1.617110 -2.120112  0.763261  0.665655  0.080133 -1.190269  0.812023
+          179 -0.467562  1.045652  0.239283  0.494645  1.159469 -1.066271 -0.192730
+          180 -0.467562 -0.917122 -1.507309 -1.300956 -1.015558  0.937280 -0.923459
+          181  2.510541  0.507472  1.199909  0.323636  0.832397 -0.707329  0.812023
+          182 -1.063183 -0.220654 -0.459354  0.152626 -0.246939  0.105186 -0.923459
+          183  1.319300 -0.758833  0.239283  0.922170  1.159469  0.653389  0.994706
+          184  1.617110 -0.030708 -0.110035  1.264189  0.129193 -0.283124  0.720682
+          185 -1.063183  0.444157 -0.983331  0.494645  0.374497  0.238974 -1.014801
+          186  3.106162 -0.758833  0.588602 -0.360403  0.701569 -0.159126  1.268729
+          187  3.106162  1.615489 -0.808672  0.067121  0.210961 -0.811748  0.538000
+          188 -1.063183 -1.581932 -1.681968 -1.642975 -0.737547 -0.625751 -0.923459
+          189 -0.765373  0.285868  2.684512 -0.103888  0.080133 -0.739960  1.177388
+          190 -1.063183 -0.157338 -0.634013 -0.958937  0.423558  0.862229 -0.832118
+          191  0.425869  0.982336  1.112579  1.264189  1.044994  0.516339  0.172635
+          192 -0.765373  0.127580 -2.031287  1.349694  1.339359  0.496760 -0.740777
+          193 -0.467562 -0.378942 -0.284695 -0.616917  0.292729 -0.475648 -0.558095
+          194 -0.765373  0.507472  0.239283 -0.274898 -1.342629  1.198329 -0.832118
+          195 -0.467562  0.539129 -1.157991  0.409141 -1.130033  0.777388 -0.740777
+          196  1.021490  0.159238 -0.284695  1.691713  1.012287 -0.071022  0.994706
+          197 -1.063183 -0.568888 -0.110035  0.665655  1.159469  0.470655 -0.923459
+          198 -0.765373 -0.188996 -1.157991  0.580150  0.161900 -0.651856 -0.832118
+          199  1.319300  0.982336 -0.808672 -0.274898  0.276376  0.268342  1.268729
+          
+          [200 rows x 7 columns]
+\end{Verbatim}
+            
+    \hypertarget{normalizing-the-features-with-min-max-scaler}{%
+\subsubsection{Normalizing the features with Min-Max
+Scaler}\label{normalizing-the-features-with-min-max-scaler}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{min\PYZus{}max\PYZus{}scaler} \PY{o}{=} \PY{n}{sklearn}\PY{o}{.}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+          \PY{n}{x\PYZus{}scaled\PYZus{}min\PYZus{}max} \PY{o}{=} \PY{n}{min\PYZus{}max\PYZus{}scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalised\PYZus{}min\PYZus{}max} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x\PYZus{}scaled\PYZus{}min\PYZus{}max}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalised\PYZus{}min\PYZus{}max}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:}             0         1         2         3         4         5         6
+          0    0.357143  0.209790  0.416667  0.228261  0.404040  0.126645  0.071429
+          1    0.500000  0.972028  0.444444  0.282609  0.232323  0.035406  0.809524
+          2    0.357143  0.146853  0.611111  0.369565  0.592593  0.032229  0.333333
+          3    0.000000  0.762238  0.527778  0.391304  1.000000  0.078983  0.119048
+          4    0.000000  0.356643  0.305556  0.195652  0.276094  0.021788  0.047619
+          5    0.357143  0.286713  0.527778  0.217391  0.585859  0.133000  0.738095
+          6    0.214286  0.188811  0.277778  0.260870  0.542088  0.113936  0.095238
+          7    0.071429  0.958042  0.166667  0.097826  0.259259  0.258738  0.071429
+          8    0.214286  0.601399  0.583333  0.086957  0.478114  0.052202  1.000000
+          9    0.142857  0.503497  0.555556  0.326087  0.845118  0.517022  0.238095
+          10   0.000000  0.566434  0.027778  0.304348  0.838384  1.000000  0.285714
+          11   0.642857  0.685315  0.555556  0.250000  0.427609  0.035860  0.571429
+          12   0.071429  0.930070  0.305556  0.173913  0.400673  0.142079  0.904762
+          13   0.857143  0.251748  0.333333  0.000000  0.316498  0.381752  0.547619
+          14   0.071429  0.209790  0.388889  0.489130  0.777778  0.377667  0.190476
+          15   0.285714  0.300699  0.527778  0.086957  0.168350  0.062642  0.000000
+          16   0.071429  0.370629  0.305556  0.010870  0.242424  0.391285  0.000000
+          17   0.785714  0.608392  0.777778  0.282609  0.619529  0.076714  0.714286
+          18   0.071429  0.650350  0.416667  0.239130  0.373737  0.119837  0.500000
+          19   0.000000  0.580420  0.333333  0.108696  0.131313  0.055379  0.000000
+          20   0.142857  0.300699  0.444444  0.097826  0.074074  0.068089  0.142857
+          21   0.071429  0.307692  0.388889  0.239130  0.464646  0.162960  0.500000
+          22   0.285714  0.188811  0.666667  0.130435  0.373737  0.105311  0.309524
+          23   0.000000  0.314685  0.361111  0.108696  0.094276  0.075806  0.000000
+          24   0.071429  0.216783  0.416667  0.293478  0.653199  0.143441  0.071429
+          25   0.642857  0.755245  0.638889  0.152174  0.424242  0.338629  0.261905
+          26   0.071429  0.300699  0.277778  0.032609  0.242424  0.211530  0.000000
+          27   0.000000  0.587413  0.375000  0.206522  0.821549  0.157059  0.071429
+          28   0.357143  0.363636  0.472222  0.391304  0.602694  0.080799  0.285714
+          29   0.142857  0.377622  0.500000  0.239130  0.478114  0.278257  0.142857
+          ..        {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}
+          170  0.428571  0.412587  0.305556  0.347826  0.521886  0.072628  0.452381
+          171  0.357143  0.342657  0.472222  0.239130  0.629630  0.033591  0.166667
+          172  0.500000  0.965035  0.416667  0.228261  0.595960  0.299591  0.476190
+          173  0.285714  0.895105  0.555556  0.347826  0.632997  0.081253  0.238095
+          174  0.000000  0.272727  0.652778  0.195652  0.646465  0.073536  0.071429
+          175  0.500000  0.475524  0.444444  0.282609  0.245791  0.034498  0.380952
+          176  0.071429  0.384615  0.333333  0.065217  0.195286  0.024058  0.047619
+          177  0.500000  0.566434  0.722222  0.369565  0.464646  0.138901  0.428571
+          178  0.642857  0.006993  0.583333  0.326087  0.491582  0.004993  0.476190
+          179  0.142857  0.706294  0.500000  0.304348  0.713805  0.022242  0.214286
+          180  0.142857  0.272727  0.222222  0.076087  0.265993  0.300953  0.023810
+          181  0.857143  0.587413  0.652778  0.282609  0.646465  0.072174  0.476190
+          182  0.000000  0.426573  0.388889  0.260870  0.424242  0.185202  0.023810
+          183  0.571429  0.307692  0.500000  0.358696  0.713805  0.261462  0.523810
+          184  0.642857  0.468531  0.444444  0.402174  0.501684  0.131185  0.452381
+          185  0.000000  0.573427  0.305556  0.304348  0.552189  0.203813  0.000000
+          186  1.000000  0.307692  0.555556  0.195652  0.619529  0.148434  0.595238
+          187  1.000000  0.832168  0.333333  0.250000  0.518519  0.057649  0.404762
+          188  0.000000  0.125874  0.194444  0.032609  0.323232  0.083522  0.023810
+          189  0.071429  0.538462  0.888889  0.228261  0.491582  0.067635  0.571429
+          190  0.000000  0.440559  0.361111  0.119565  0.562290  0.290513  0.047619
+          191  0.357143  0.692308  0.638889  0.402174  0.690236  0.242397  0.309524
+          192  0.071429  0.503497  0.138889  0.413043  0.750842  0.239673  0.071429
+          193  0.142857  0.391608  0.416667  0.163043  0.535354  0.104403  0.119048
+          194  0.071429  0.587413  0.500000  0.206522  0.198653  0.337267  0.047619
+          195  0.142857  0.594406  0.277778  0.293478  0.242424  0.278711  0.071429
+          196  0.500000  0.510490  0.416667  0.456522  0.683502  0.160690  0.523810
+          197  0.000000  0.349650  0.444444  0.326087  0.713805  0.236042  0.023810
+          198  0.071429  0.433566  0.277778  0.315217  0.508418  0.079891  0.047619
+          199  0.571429  0.692308  0.333333  0.206522  0.531987  0.207898  0.595238
+          
+          [200 rows x 7 columns]
+\end{Verbatim}
+            
+    \hypertarget{splitting-into-training-and-testing-data8020}{%
+\subsubsection{Splitting into training and testing
+data(80:20)}\label{splitting-into-training-and-testing-data8020}}
+
+    In the training-testing split we use split ratio of 80:20 and random
+state = 31. A few random states were tried and best results were
+obtained at 31.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{x\PYZus{}train} \PY{p}{,} \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{x\PYZus{}scaled}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{31}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{defining-and-training-the-logistic-regression-classifier}{%
+\subsubsection{Defining and training the Logistic Regression
+classifier}\label{defining-and-training-the-logistic-regression-classifier}}
+
+    According to Scikit Documentation: The SAGA solver is often the best
+choice. Hence, SAGA was used as the solver.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{classifier} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{saga}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                             intercept\_scaling=1, l1\_ratio=None, max\_iter=100,
+                             multi\_class='warn', n\_jobs=None, penalty='l2',
+                             random\_state=0, solver='saga', tol=0.0001, verbose=0,
+                             warm\_start=False)
+\end{Verbatim}
+            
+    \hypertarget{predicitng-the-class-for-various-thresholds-and-selecting-the-one-with-the-best-results}{%
+\subsubsection{Predicitng the class for various thresholds and selecting
+the one with the best
+results}\label{predicitng-the-class-for-various-thresholds-and-selecting-the-one-with-the-best-results}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{plt\PYZus{}x} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{plt\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.3}
+          
+          \PY{k}{while} \PY{n}{threshold} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{:}
+              \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{classifier}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{threshold}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}  
+              \PY{n}{cf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+              \PY{n}{plt\PYZus{}x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{threshold}\PY{p}{)}
+              \PY{n}{plt\PYZus{}y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{cf\PYZus{}matrix}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{cf\PYZus{}matrix}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{threshold} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{0.1}
+          
+          \PY{n}{corresponding\PYZus{}max\PYZus{}threshold} \PY{o}{=} \PY{n}{plt\PYZus{}x}\PY{p}{[}\PY{n}{plt\PYZus{}y}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{plt\PYZus{}y}\PY{p}{)}\PY{p}{)}\PY{p}{]}    
+          \PY{c+c1}{\PYZsh{}     cf\PYZus{}matrix}
+\end{Verbatim}
+
+
+    \hypertarget{plotting-the-training-accuracy-vs-threshold-and-predicting-with-the-best-threshold}{%
+\subsubsection{Plotting the Training Accuracy v/s Threshold and
+predicting with the best
+threshold}\label{plotting-the-training-accuracy-vs-threshold-and-predicting-with-the-best-threshold}}
+
+    As we can see the threshold value where we get the maximum accuracy is
+0.7 which is \textasciitilde{}92.5\%.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{classifier}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{corresponding\PYZus{}max\PYZus{}threshold}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{n}{cf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{plt\PYZus{}x}\PY{p}{,} \PY{n}{plt\PYZus{}y}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{heatmap-of-the-class-predictions}{%
+\subsubsection{Heatmap of the class
+predictions}\label{heatmap-of-the-class-predictions}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Diabetic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Non\PYZhy{}Diabetic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df\PYZus{}cm} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cf\PYZus{}matrix}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+          \PY{n}{sn}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{sn}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df\PYZus{}cm}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
